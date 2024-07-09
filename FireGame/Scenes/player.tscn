@@ -8,7 +8,7 @@
 [ext_resource type="Shader" path="res://FireGame/Scenes/playerFireParticles.gdshader" id="4_rs1vc"]
 [ext_resource type="Texture2D" uid="uid://bytvftw8fturs" path="res://FireGame/Tilesets/Fire2.png" id="4_xlgro"]
 [ext_resource type="Resource" uid="uid://byrtsn2gg020k" path="res://FireGame/Resources/size3.tres" id="5_c878w"]
-[ext_resource type="Script" path="res://FireGame/Scenes/Dissolve_Sprite.gd" id="5_qe6ea"]
+[ext_resource type="Script" path="res://FireGame/Scripts/Dissolve_Sprite.gd" id="8_bh0m2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h0gxi"]
 resource_local_to_scene = true
@@ -98,11 +98,15 @@ z_index = 5
 material = SubResource("ShaderMaterial_h0gxi")
 position = Vector2(0, -10)
 texture = ExtResource("4_xlgro")
-script = ExtResource("5_qe6ea")
+script = ExtResource("8_bh0m2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_uen1t")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, -10)
+target_position = Vector2(0, -1000)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

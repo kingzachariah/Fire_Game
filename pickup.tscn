@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://vv8kkdc2x3kt"]
 
-[ext_resource type="Script" path="res://pickup.gd" id="1_idamx"]
+[ext_resource type="Script" path="res://FireGame/Scripts/pickup.gd" id="1_idamx"]
 [ext_resource type="Texture2D" uid="uid://br8vd6ef8dy5e" path="res://FireGame/Tilesets/Fire1.png" id="2_u3liy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_857b8"]

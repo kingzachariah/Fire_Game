@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://5br7m2lj1abr"]
 
-[ext_resource type="Script" path="res://FireGame/Scenes/FireParticleMovement.gd" id="1_22p8p"]
+[ext_resource type="Script" path="res://FireGame/Scripts/FireParticleMovement.gd" id="1_22p8p"]
 [ext_resource type="Shader" path="res://FireGame/Scenes/playerFireParticles.gdshader" id="2_o283d"]
-[ext_resource type="Script" path="res://FireGame/Scenes/Dissolve_Sprite.gd" id="4_70o8v"]
+[ext_resource type="Script" path="res://FireGame/Scripts/Dissolve_Sprite.gd" id="4_70o8v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_458xu"]
 radius = 3.0

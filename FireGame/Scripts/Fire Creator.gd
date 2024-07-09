@@ -11,21 +11,36 @@ var fire_sizes: Array[float] = [2,3,5,7]
 @onready var fire_aim_point = $"../../FireAimPoint"
 @onready var sprite_2d = $"../../Sprite2D"
 @onready var collision_shape_2d = $"../../CollisionShape2D"
+@onready var ray_cast_2d = $"../../RayCast2D"
 
 const FIRE_BODY = preload("res://FireGame/Scenes/fire_body.tscn")
 
 var fires:Array[Node2D] = []
 var remove_queue: Array[Node2D] = []
 
+
+var time_to_shrink: float = 3.0
+var max_time_to_shrink: float = time_to_shrink
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_fire()
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_down"):
 		queue_remove_fire()
 	elif Input.is_action_just_pressed("ui_up"):
 		add_fire()
+	
+	check_rain(delta)
+
+func check_rain(delta):
+	if ray_cast_2d.is_colliding() == false and fires.size() > 1:
+		time_to_shrink -= delta
+		print(time_to_shrink)
+		if time_to_shrink<= 0 :
+			queue_remove_fire()
+			time_to_shrink = max_time_to_shrink
 
 #adds a fire to the front of the queue
 func add_fire()->Node2D:
