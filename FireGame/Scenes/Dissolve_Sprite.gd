@@ -82,7 +82,7 @@ func change_appearance(appearance: Texture2D):
 		start_dissolve()
 		temp_sprite.hide()
 	else:
-		if appearance.get_size() >= texture.get_size():
+		if appearance != null and texture != null and appearance.get_size() >= texture.get_size():
 			start_appear()
 			temp_sprite.texture = texture
 			texture = appearance

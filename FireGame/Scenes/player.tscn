@@ -91,7 +91,7 @@ fill_to = Vector2(1, 0.5)
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 floor_snap_length = 10.0
 script = ExtResource("1_c6uwv")
-movement_datas = [ExtResource("2_j5e8m"), ExtResource("3_dj8q6"), ExtResource("4_e2njk"), ExtResource("5_c878w")]
+movement_datas = Array[Resource("res://FireGame/Scripts/PlayerMovementData.gd")]([ExtResource("2_j5e8m"), ExtResource("3_dj8q6"), ExtResource("4_e2njk"), ExtResource("5_c878w")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 5

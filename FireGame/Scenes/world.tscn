@@ -1,9 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c5mxeas2vxew0"]
+[gd_scene load_steps=8 format=3 uid="uid://c5mxeas2vxew0"]
 
 [ext_resource type="PackedScene" uid="uid://dewv6fxpunnsh" path="res://FireGame/Scenes/player.tscn" id="1_dkoxo"]
 [ext_resource type="Shader" path="res://FireGame/Scenes/playerFireParticles.gdshader" id="2_rtykq"]
-[ext_resource type="Texture2D" uid="uid://x6tww1d1vs8s" path="res://FireGame/Tilesets/Tool images/TestMap1.png" id="3_c20xc"]
-[ext_resource type="Texture2D" uid="uid://bw0a7rpghy66n" path="res://FireGame/Tilesets/Tool images/TestMap2.png" id="4_545tx"]
 [ext_resource type="PackedScene" uid="uid://cbpwx50vgc814" path="res://FireGame/Tilesets/TestMap3..tscn" id="4_w2c7m"]
 [ext_resource type="PackedScene" uid="uid://vv8kkdc2x3kt" path="res://pickup.tscn" id="6_2q8wb"]
 
@@ -50,7 +48,6 @@ motion_scale = Vector2(0.5, 0.5)
 modulate = Color(0.457353, 0.573046, 0.529751, 1)
 z_index = -1
 position = Vector2(-7738, -179)
-texture = ExtResource("3_c20xc")
 centered = false
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
@@ -59,7 +56,6 @@ motion_scale = Vector2(0.8, 0.8)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
 modulate = Color(0.478972, 0.596855, 0.531615, 1)
 position = Vector2(-657, -20)
-texture = ExtResource("4_545tx")
 
 [node name="TestMap3" parent="." instance=ExtResource("4_w2c7m")]
 position = Vector2(-307, -320)
