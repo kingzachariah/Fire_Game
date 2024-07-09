@@ -1,0 +1,88 @@
+[gd_scene load_steps=10 format=3 uid="uid://c5mxeas2vxew0"]
+
+[ext_resource type="PackedScene" uid="uid://dewv6fxpunnsh" path="res://FireGame/Scenes/player.tscn" id="1_dkoxo"]
+[ext_resource type="Shader" path="res://FireGame/Scenes/playerFireParticles.gdshader" id="2_rtykq"]
+[ext_resource type="Texture2D" uid="uid://x6tww1d1vs8s" path="res://FireGame/Tilesets/Tool images/TestMap1.png" id="3_c20xc"]
+[ext_resource type="Texture2D" uid="uid://bw0a7rpghy66n" path="res://FireGame/Tilesets/Tool images/TestMap2.png" id="4_545tx"]
+[ext_resource type="PackedScene" uid="uid://cbpwx50vgc814" path="res://FireGame/Tilesets/TestMap3..tscn" id="4_w2c7m"]
+[ext_resource type="PackedScene" uid="uid://vv8kkdc2x3kt" path="res://pickup.tscn" id="6_2q8wb"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7ogm7"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_wy6h1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vg3kx"]
+shader = ExtResource("2_rtykq")
+shader_parameter/density = 0.5
+shader_parameter/pixelation_factor = 1
+shader_parameter/randomv2 = null
+
+[node name="World" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 649)
+physics_material_override = SubResource("PhysicsMaterial_7ogm7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1432, -466)
+shape = SubResource("WorldBoundaryShape2D_wy6h1")
+
+[node name="Player" parent="." instance=ExtResource("1_dkoxo")]
+material = SubResource("ShaderMaterial_vg3kx")
+position = Vector2(0, 45)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -10)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+energy = 0.9
+blend_mode = 1
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = -1
+motion_scale = Vector2(0.5, 0.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+modulate = Color(0.457353, 0.573046, 0.529751, 1)
+z_index = -1
+position = Vector2(-7738, -179)
+texture = ExtResource("3_c20xc")
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.8, 0.8)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+modulate = Color(0.478972, 0.596855, 0.531615, 1)
+position = Vector2(-657, -20)
+texture = ExtResource("4_545tx")
+
+[node name="TestMap3" parent="." instance=ExtResource("4_w2c7m")]
+position = Vector2(-307, -320)
+
+[node name="Pickup" parent="." instance=ExtResource("6_2q8wb")]
+position = Vector2(746, 26)
+
+[node name="Pickup2" parent="." instance=ExtResource("6_2q8wb")]
+position = Vector2(603, 25)
+
+[node name="Pickup3" parent="." instance=ExtResource("6_2q8wb")]
+position = Vector2(353, 36)
+
+[node name="Pickup4" parent="." instance=ExtResource("6_2q8wb")]
+position = Vector2(525, -118)
+
+[node name="Pickup5" parent="." instance=ExtResource("6_2q8wb")]
+position = Vector2(1013, -198)
+
+[node name="Pickup6" parent="." instance=ExtResource("6_2q8wb")]
+position = Vector2(1342, 48)
+
+[node name="Pickup7" parent="." instance=ExtResource("6_2q8wb")]
+position = Vector2(1950, 55)
+
+[connection signal="picked_up" from="Pickup" to="Player" method="_on_pickup_picked_up"]

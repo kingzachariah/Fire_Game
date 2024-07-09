@@ -1,0 +1,64 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "TestMap1.tmx",
+    "automapping.whileDrawing": true,
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        ":/automap-tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "Grass 8x8.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 4
+        },
+        "Prototype 8x8.tsx": {
+            "scaleInDock": 5.5,
+            "scaleInEditor": 1
+        },
+        "Rule_Sets1.tmx": {
+            "scale": 4,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 120,
+                "y": 79.875
+            }
+        },
+        "TestMap1.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1290.909090909091,
+                "y": 428.78787878787887
+            }
+        }
+    },
+    "last.exportedFilePath": "C:/Users/video/OneDrive/Documents/GodotGames/FireGame/Tilesets",
+    "last.imagePath": "C:/Program Files (x86)/Steam/steamapps/common/Aseprite",
+    "map.lastUsedExportFilter": "Godot 4 Scene files (*.tscn)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 8,
+    "map.tileWidth": 8,
+    "openFiles": [
+        "Rule_Sets1.tmx",
+        "TestMap1.tmx",
+        "Prototype 8x8.tsx",
+        "Grass 8x8.tsx"
+    ],
+    "project": "Prototype rule tiles.tiled-project",
+    "recentFiles": [
+        "Rule_Sets1.tmx",
+        "Grass 8x8.tsx",
+        "Prototype 8x8.tsx",
+        "TestMap1.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 8,
+        "width": 8
+    }
+}

@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://dewv6fxpunnsh"]
+
+[ext_resource type="Script" path="res://FireGame/Scripts/playerController.gd" id="1_c6uwv"]
+[ext_resource type="Texture2D" uid="uid://cgty64g5oth6n" path="res://FireGame/Tilesets/Player_Fire_SpriteSheet.png" id="3_20icv"]
+[ext_resource type="Script" path="res://FireGame/Scripts/Fire Creator.gd" id="3_f7p2t"]
+[ext_resource type="PackedScene" uid="uid://5br7m2lj1abr" path="res://FireGame/Scenes/fire_body.tscn" id="4_6gjep"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uen1t"]
+radius = 9.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3u2p"]
+atlas = ExtResource("3_20icv")
+region = Rect2(0, 168, 16, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bd0tf"]
+atlas = ExtResource("3_20icv")
+region = Rect2(0, 112, 16, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mg11y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3u2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bd0tf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(0, 18)
+floor_snap_length = 10.0
+script = ExtResource("1_c6uwv")
+ground_max_move_speed = 100.0
+air_max_move_speed = 200.0
+max_jump_height = 50.0
+min_jump_height = 20.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -10)
+shape = SubResource("CircleShape2D_uen1t")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -14)
+sprite_frames = SubResource("SpriteFrames_mg11y")
+
+[node name="Fire Creator" type="Marker2D" parent="."]
+position = Vector2(0, -18)
+
+[node name="Fire Parent" type="Node2D" parent="Fire Creator"]
+script = ExtResource("3_f7p2t")
+
+[node name="FireBody" parent="Fire Creator/Fire Parent" instance=ExtResource("4_6gjep")]

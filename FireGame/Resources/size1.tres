@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="PlayerMovementData" load_steps=2 format=3 uid="uid://dm6cijjwiulkc"]
+
+[ext_resource type="Script" path="res://FireGame/Scripts/PlayerMovementData.gd" id="1_gvrat"]
+
+[resource]
+script = ExtResource("1_gvrat")
+floor_time_to_max_speed = 0.4
+floor_time_to_stop = 0.06
+air_time_to_max_speed = 1.5
+ground_max_move_speed = 140
+air_max_move_speed = 160
+max_jump_height = 40.0
+min_jump_height = 30.0
+jump_time_to_peak = 0.6
+jump_time_to_descent = 0.3
+jump_buffer_timer = 0.2
+coyote_timer = 0.1
