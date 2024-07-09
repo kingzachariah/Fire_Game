@@ -1,0 +1,11 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1720520746
+::res://FireGame/::1720520719
+::res://FireGame/Scenes/::1720520719
+fire_body.tscn::PackedScene::2108819693679777459::1720520708::0::1::::<><>::uid://br8vd6ef8dy5e::::res://Tilesets/Fire1.png
+player.tscn::PackedScene::7486764451535932263::1720520708::0::1::::<><>::res://Scripts/playerController.gd<>res://Scripts/Fire Creator.gd<>res://Scenes/playerFireParticles.gdshader<>uid://bytvftw8fturs::::res://Tilesets/Fire2.png<>res://Scenes/Dissolve_Sprite.gd
+world.tscn::PackedScene::6904682872647347581::1720520708::0::1::::<><>::uid://dewv6fxpunnsh::::res://Scenes/player.tscn<>res://Scenes/playerFireParticles.gdshader<>uid://x6tww1d1vs8s::::res://Tilesets/Tool images/TestMap1.png<>uid://bw0a7rpghy66n::::res://Tilesets/Tool images/TestMap2.png<>uid://cbpwx50vgc814::::res://Tilesets/TestMap3..tscn<>uid://vv8kkdc2x3kt::::res://pickup.tscn
+::res://FireGame/Scripts/::1720520719
+Fire Creator.gd::GDScript::-1::1720520708::0::1::::<>Node2D<>::
+::res://FireGame/Tilesets/::1720520719
+::res://FireGame/Tilesets/Tool images/::1720520719

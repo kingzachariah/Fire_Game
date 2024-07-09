@@ -1,0 +1,4 @@
+res://Scenes/world.tscn
+res://Scenes/player.tscn
+res://Scripts/Fire Creator.gd
+res://Scenes/fire_body.tscn
