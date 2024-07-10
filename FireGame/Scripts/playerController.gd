@@ -16,11 +16,20 @@ extends CharacterBody2D
 
 @onready var fire_parent = $"Node/Fire Parent"
 
+var interaction_system: TileInteractionSystem
+
 var jump_buffer:bool = false
 var coyote_time:bool = false
 var can_jump = false
 
 func _ready():
+	interaction_system = get_node("/root/Main/TileInteractionSystem")
+	if interaction_system == null:
+		print("Error: TileInteractionSystem not found")
+	else:
+		print("TileInteractionSystem successfully assigned")
+	
+	
 	var pickups = get_tree().get_nodes_in_group("pickups")
 	for pickup in pickups:
 		pickup.picked_up.connect(pickedup)
@@ -35,10 +44,15 @@ func _physics_process(delta):
 		#handle movement and jump
 		handle_horizontal_movement(delta,get_input_velocity())
 		handle_jump()
-		
+	else:
+		velocity = velocity - velocity*delta
 	
 	#other
 	move_and_slide()
+	for i in range(get_slide_collision_count()):
+		var collision = get_slide_collision(i)
+		handle_collision(collision)
+	
 	queue_redraw()
 
 func change_movement_data() -> void:
@@ -118,3 +132,13 @@ func on_coyote_timer_timeout() -> void:
 
 func pickedup(_body):
 	fire_parent.call_deferred("add_fire")
+
+func handle_collision(collision: KinematicCollision2D)-> void:
+	var colliding_object = collision.get_collider()
+	
+	if colliding_object is TileMap:
+		var tilemap: TileMap = colliding_object as TileMap
+		var collision_position = collision.get_position()
+		var tile_position = tilemap.local_to_map(collision_position)
+		
+		interaction_system.handle_interaction(tilemap, tile_position, velocity)

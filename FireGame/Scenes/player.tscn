@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://dewv6fxpunnsh"]
 
-[ext_resource type="Script" path="res://FireGame/Scripts/playerController.gd" id="1_c6uwv"]
+[ext_resource type="Script" path="res://FireGame/Scripts/PlayerController.gd" id="1_c6uwv"]
 [ext_resource type="Resource" uid="uid://b8geera0ncwfd" path="res://FireGame/Resources/BaseStats.tres" id="2_j5e8m"]
 [ext_resource type="Resource" uid="uid://dm6cijjwiulkc" path="res://FireGame/Resources/size1.tres" id="3_dj8q6"]
 [ext_resource type="Script" path="res://FireGame/Scripts/Fire Creator.gd" id="3_f7p2t"]
@@ -201,6 +201,7 @@ trail_section_subdivisions = 1
 
 [node name="Steam" type="GPUParticles2D" parent="."]
 position = Vector2(0, -10)
+emitting = false
 amount = 100
 process_material = SubResource("ParticleProcessMaterial_ae2yu")
 texture = SubResource("GradientTexture2D_r7d7d")
