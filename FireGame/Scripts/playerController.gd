@@ -31,9 +31,11 @@ func _physics_process(delta):
 	#update movement data
 	change_movement_data()
 	
-	#handle movement and jump
-	handle_horizontal_movement(delta,get_input_velocity())
-	handle_jump()
+	if !fire_parent.is_dead:
+		#handle movement and jump
+		handle_horizontal_movement(delta,get_input_velocity())
+		handle_jump()
+		
 	
 	#other
 	move_and_slide()
@@ -43,7 +45,7 @@ func change_movement_data() -> void:
 	
 	
 	var current_size = fire_parent.fires.size() - 1
-	print("current size: ", current_size)
+	##print("current size: ", current_size)
 	current_size = clamp(current_size ,0 ,fire_parent.fire_textures.size() -1)
 	
 	current_movement_data = movement_datas[current_size]

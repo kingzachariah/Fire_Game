@@ -1,8 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://c5mxeas2vxew0"]
+[gd_scene load_steps=8 format=3 uid="uid://c5mxeas2vxew0"]
 
 [ext_resource type="PackedScene" uid="uid://dewv6fxpunnsh" path="res://FireGame/Scenes/player.tscn" id="1_dkoxo"]
 [ext_resource type="Shader" path="res://FireGame/Scenes/playerFireParticles.gdshader" id="2_rtykq"]
-[ext_resource type="PackedScene" uid="uid://cbpwx50vgc814" path="res://FireGame/Tilesets/TestMap3..tscn" id="4_w2c7m"]
+[ext_resource type="PackedScene" uid="uid://bjofx61g6qje2" path="res://FireGame/Tilesets/TestMap3..tscn" id="4_w2c7m"]
 [ext_resource type="PackedScene" uid="uid://vv8kkdc2x3kt" path="res://pickup.tscn" id="6_2q8wb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7ogm7"]
@@ -14,30 +14,6 @@ shader = ExtResource("2_rtykq")
 shader_parameter/density = 0.5
 shader_parameter/pixelation_factor = 1
 shader_parameter/randomv2 = null
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hbvl6"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(2000, 1, 100)
-velocity_pivot = Vector3(0, 1, 0)
-direction = Vector3(0, 1, 0)
-spread = 10.0
-initial_velocity_min = 100.0
-initial_velocity_max = 100.0
-gravity = Vector3(0, 10, 0)
-collision_mode = 2
-
-[sub_resource type="Gradient" id="Gradient_sq8g6"]
-colors = PackedColorArray(0.249974, 0.788581, 0.991378, 0, 0.36211, 0.76546, 0.89468, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pkjea"]
-gradient = SubResource("Gradient_sq8g6")
-width = 2
-height = 10
-fill_to = Vector2(0, 1)
-
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_oy6bs"]
-polygon = PackedVector2Array(-110, 134, -113, -242, 389, -242, 392, 5, 522, 5, 531, -3, 641, -3, 656, 7, 694, 7, 743, -18, 781, -1, 784, 39, 808, 39, 807, -1, 903, -3, 910, -107, 1168, -107, 1170, 11, 1417, 13, 1417, 37, 1535, 38, 1773, -83, 1810, -82, 1860, -58, 1870, -58, 1875, -67, 1915, -67, 1921, -64, 1922, -33, 2077, 54, 2131, 54, 2133, 61, 2186, 61, 2189, -10, 2281, -11, 2283, 48, 2350, 47, 2351, 6, 2431, 5, 2433, 63, 2479, 62, 2479, -3, 2551, -3, 2552, 62, 2575, 62, 2575, 15, 2630, 14, 2632, 55, 2693, 53, 2694, -14, 2714, -35, 2733, -35, 2734, -123, 2833, -125, 2835, 230, -112, 209)
 
 [node name="World" type="Node2D"]
 
@@ -51,7 +27,7 @@ shape = SubResource("WorldBoundaryShape2D_wy6h1")
 
 [node name="Player" parent="." instance=ExtResource("1_dkoxo")]
 material = SubResource("ShaderMaterial_vg3kx")
-position = Vector2(0, 45)
+position = Vector2(2, 49)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -10)
@@ -88,6 +64,9 @@ position = Vector2(-307, -320)
 [node name="Pickup" parent="." instance=ExtResource("6_2q8wb")]
 position = Vector2(766, 69)
 
+[node name="Pickup3" parent="." instance=ExtResource("6_2q8wb")]
+position = Vector2(754, 69)
+
 [node name="Pickup2" parent="." instance=ExtResource("6_2q8wb")]
 position = Vector2(1056, -21)
 
@@ -97,16 +76,5 @@ position = Vector2(2662, 87)
 [node name="Pickup7" parent="." instance=ExtResource("6_2q8wb")]
 position = Vector2(2186, 76)
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-position = Vector2(1642, -228)
-amount = 4000
-process_material = SubResource("ParticleProcessMaterial_hbvl6")
-texture = SubResource("GradientTexture2D_pkjea")
-lifetime = 3.0
-visibility_rect = Rect2(-2000, 0, 4000, 300)
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-position = Vector2(-78, 46)
-occluder = SubResource("OccluderPolygon2D_oy6bs")
-
 [connection signal="picked_up" from="Pickup" to="Player" method="_on_pickup_picked_up"]
+[connection signal="picked_up" from="Pickup3" to="Player" method="_on_pickup_picked_up"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dewv6fxpunnsh"]
+[gd_scene load_steps=25 format=3 uid="uid://dewv6fxpunnsh"]
 
 [ext_resource type="Script" path="res://FireGame/Scripts/playerController.gd" id="1_c6uwv"]
 [ext_resource type="Resource" uid="uid://b8geera0ncwfd" path="res://FireGame/Resources/BaseStats.tres" id="2_j5e8m"]
@@ -13,7 +13,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h0gxi"]
 resource_local_to_scene = true
 shader = ExtResource("4_rs1vc")
-shader_parameter/density = 0.455
+shader_parameter/density = 0.0
 shader_parameter/pixelation_factor = 1
 shader_parameter/randomv2 = 0.005
 
@@ -88,6 +88,60 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 0.5)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k3ohx"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(600, 100, 100)
+velocity_pivot = Vector3(0, 1, 0)
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 10, 0)
+collision_mode = 2
+
+[sub_resource type="Gradient" id="Gradient_y6f2v"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.0991776, 0.657236, 0.709674, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kloie"]
+gradient = SubResource("Gradient_y6f2v")
+width = 1
+height = 1
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Curve" id="Curve_5uq8v"]
+_data = [Vector2(0, 0.559699), 0.0, 0.0, 0, 0, Vector2(0.230986, 1), 0.0, 0.0, 0, 0, Vector2(0.670422, 1), 0.0, 0.0, 0, 0, Vector2(0.861972, 0.590831), -2.66432, -2.66432, 0, 0, Vector2(1, 0), -4.28051, 0.0, 1, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_n1ehe"]
+curve = SubResource("Curve_5uq8v")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ae2yu"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 10.0
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, -1, 0)
+spread = 90.0
+initial_velocity_min = 40.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, -300, 0)
+damping_min = 300.0
+damping_max = 300.0
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_n1ehe")
+
+[sub_resource type="Gradient" id="Gradient_hy80r"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r7d7d"]
+gradient = SubResource("Gradient_hy80r")
+width = 2
+height = 2
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 floor_snap_length = 10.0
 script = ExtResource("1_c6uwv")
@@ -120,7 +174,7 @@ position = Vector2(-6, -10)
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(0, -6)
 scale = Vector2(759.375, 759.375)
-color = Color(1, 0.660362, 0.56101, 1)
+color = Color(0.925161, 0.880584, 0.878774, 1)
 energy = 0.7
 texture = SubResource("GradientTexture2D_p1pyn")
 texture_scale = 0.01
@@ -130,3 +184,23 @@ texture_scale = 0.01
 [node name="Fire Parent" type="Node2D" parent="Node"]
 position = Vector2(0, -10)
 script = ExtResource("3_f7p2t")
+
+[node name="Rain" type="GPUParticles2D" parent="."]
+z_index = -4
+position = Vector2(0, -300)
+amount = 4000
+process_material = SubResource("ParticleProcessMaterial_k3ohx")
+texture = SubResource("GradientTexture2D_kloie")
+lifetime = 4.0
+collision_base_size = 10.0
+visibility_rect = Rect2(-50, 0, 100, 300)
+trail_enabled = true
+trail_lifetime = 0.1
+trail_sections = 2
+trail_section_subdivisions = 1
+
+[node name="Steam" type="GPUParticles2D" parent="."]
+position = Vector2(0, -10)
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_ae2yu")
+texture = SubResource("GradientTexture2D_r7d7d")

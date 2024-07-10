@@ -12,15 +12,19 @@ var fire_sizes: Array[float] = [2,3,5,7]
 @onready var sprite_2d = $"../../Sprite2D"
 @onready var collision_shape_2d = $"../../CollisionShape2D"
 @onready var ray_cast_2d = $"../../RayCast2D"
+@onready var steam = $"../../Steam"
+
 
 const FIRE_BODY = preload("res://FireGame/Scenes/fire_body.tscn")
+const COAL = preload("res://FireGame/Tilesets/Coal.png")
 
 var fires:Array[Node2D] = []
 var remove_queue: Array[Node2D] = []
 
-
 var time_to_shrink: float = 3.0
 var max_time_to_shrink: float = time_to_shrink
+
+var is_dead = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,16 +35,30 @@ func _physics_process(delta):
 		queue_remove_fire()
 	elif Input.is_action_just_pressed("ui_up"):
 		add_fire()
+		
 	
 	check_rain(delta)
 
 func check_rain(delta):
-	if ray_cast_2d.is_colliding() == false and fires.size() > 1:
+	if ray_cast_2d.is_colliding() == false && !is_dead:
+		steam.emitting = true
+		
 		time_to_shrink -= delta
-		print(time_to_shrink)
 		if time_to_shrink<= 0 :
 			queue_remove_fire()
 			time_to_shrink = max_time_to_shrink
+			if fires.size() <= 1:
+				is_dead = true
+				
+			
+		
+	else:
+		steam.emitting = false
+		
+	
+	if is_dead && fires.size() > 0 :
+		is_dead=false
+		
 
 #adds a fire to the front of the queue
 func add_fire()->Node2D:
@@ -74,6 +92,8 @@ func _on_fire_dissolve_completed(fire: Node2D) -> void:
 	fire.queue_free()
 	remove_queue.pop_front()
 	update_fire_data()
+	if is_dead:
+		steam.emitting = false
 	start_next_fire_removal() 
 
 #creates the fire object and stores it in an array
@@ -92,13 +112,20 @@ func update_fire_data():
 	var fire_count = fires.size()
 	var texture_count = fire_textures.size()
 	
-	if fire_count < texture_count:
-		sprite_2d.change_appearance(fire_textures[fire_count])
-		collision_shape_2d.shape.radius = fire_sizes[fire_count]
-	else:
-		sprite_2d.change_appearance(fire_textures[texture_count-1])
-		collision_shape_2d.shape.radius = fire_sizes[texture_count-1]
+	if fires.size()<1:
+		sprite_2d.change_appearance(COAL)
+		collision_shape_2d.shape.radius = fire_sizes[0]
 		
+	else:
+		if fire_count < texture_count:
+			sprite_2d.change_appearance(fire_textures[fire_count])
+			collision_shape_2d.shape.radius = fire_sizes[fire_count]
+		else:
+			sprite_2d.change_appearance(fire_textures[texture_count-1])
+			collision_shape_2d.shape.radius = fire_sizes[texture_count-1]
+			
+		
+	
 	for i in range(fire_count):
 		var texture_index = min(fire_count-i-1, texture_count-1)
 		if i == 0:
