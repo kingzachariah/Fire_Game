@@ -9,9 +9,10 @@ func register_interaction(tile_id: int, atlas_coords: Vector2i, interaction: Til
 	interactions[atlas_coords] = interaction
 
 # Handle the interaction based on tile ID
-func handle_interaction(tilemap: TileMap, tile_position: Vector2, velocity: Vector2) -> void:
+func handle_interaction(tilemap: TileMap, tile_position: Vector2, velocity: Vector2) -> bool:
 	var tile_id = tilemap.get_cell_atlas_coords(0, tile_position)
-	
+
 	##print(tile_id)
 	if tile_id in interactions:
-		interactions[tile_id].interact(tilemap, tile_position, velocity)
+		return interactions[tile_id].interact(tilemap, tile_position, velocity)
+	return false

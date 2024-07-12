@@ -47,17 +47,18 @@ func _physics_process(delta):
 	else:
 		velocity = velocity - velocity*delta
 	
+	#check for collisions before moving
+	var collisions = check_for_collisions(delta)
+	for collision in collisions:
+		handle_collision(collision)
+		
+	
 	#other
 	move_and_slide()
-	for i in range(get_slide_collision_count()):
-		var collision = get_slide_collision(i)
-		handle_collision(collision)
 	
 	queue_redraw()
 
 func change_movement_data() -> void:
-	
-	
 	var current_size = fire_parent.fires.size() - 1
 	##print("current size: ", current_size)
 	current_size = clamp(current_size ,0 ,fire_parent.fire_textures.size() -1)
@@ -132,8 +133,33 @@ func on_coyote_timer_timeout() -> void:
 
 func pickedup(_body):
 	fire_parent.call_deferred("add_fire")
+	
 
-func handle_collision(collision: KinematicCollision2D)-> void:
+func check_for_collisions(delta:float) -> Array[KinematicCollision2D]:
+	var collisions: Array[KinematicCollision2D] = []
+	var test_velocity = velocity * delta * 1.5
+	var remaining_velocity = test_velocity
+	var max_iterations = 3
+	var iteration = 0
+	
+	var collision = move_and_collide(test_velocity, true)
+	
+	while collision != null and iteration < max_iterations:
+		collisions.append(collision)
+		
+		remaining_velocity = collision.get_remainder() 
+		
+		if remaining_velocity.length() <= 0.01:
+			break
+			
+		
+		collision = move_and_collide(remaining_velocity, true)
+		iteration += 1
+	
+	return collisions
+	
+
+func handle_collision(collision: KinematicCollision2D):
 	var colliding_object = collision.get_collider()
 	
 	if colliding_object is TileMap:
@@ -141,4 +167,8 @@ func handle_collision(collision: KinematicCollision2D)-> void:
 		var collision_position = collision.get_position()
 		var tile_position = tilemap.local_to_map(collision_position)
 		
-		interaction_system.handle_interaction(tilemap, tile_position, velocity)
+		if interaction_system.handle_interaction(tilemap, tile_position, velocity):
+			velocity *= 0.5
+		
+	
+
