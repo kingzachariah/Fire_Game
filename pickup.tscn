@@ -30,7 +30,7 @@ texture = ExtResource("2_u3liy")
 [node name="PointLight2D" type="PointLight2D" parent="."]
 scale = Vector2(2.5, 2.5)
 color = Color(1, 0.658824, 0.560784, 1)
-energy = 0.3
+energy = 0.7
 texture = SubResource("GradientTexture2D_uka1x")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

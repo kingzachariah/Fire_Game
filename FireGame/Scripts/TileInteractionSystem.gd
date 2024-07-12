@@ -12,6 +12,6 @@ func register_interaction(tile_id: int, atlas_coords: Vector2i, interaction: Til
 func handle_interaction(tilemap: TileMap, tile_position: Vector2, velocity: Vector2) -> void:
 	var tile_id = tilemap.get_cell_atlas_coords(0, tile_position)
 	
-	print(tile_id)
+	##print(tile_id)
 	if tile_id in interactions:
 		interactions[tile_id].interact(tilemap, tile_position, velocity)
