@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://FireGame/Scripts/TileInteractionSystem.gd" id="2_cuxr5"]
 [ext_resource type="Shader" path="res://FireGame/Scenes/playerFireParticles.gdshader" id="2_rtykq"]
 [ext_resource type="PackedScene" uid="uid://bjofx61g6qje2" path="res://FireGame/Tilesets/TestMap3..tscn" id="4_w2c7m"]
-[ext_resource type="PackedScene" uid="uid://vv8kkdc2x3kt" path="res://pickup.tscn" id="6_2q8wb"]
+[ext_resource type="PackedScene" uid="uid://vv8kkdc2x3kt" path="res://FireGame/Scenes/pickup.tscn" id="6_2q8wb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vg3kx"]
 shader = ExtResource("2_rtykq")
@@ -22,6 +22,7 @@ script = ExtResource("2_cuxr5")
 [node name="Player" parent="." instance=ExtResource("1_dkoxo")]
 material = SubResource("ShaderMaterial_vg3kx")
 position = Vector2(318, 379)
+floor_snap_length = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -10)

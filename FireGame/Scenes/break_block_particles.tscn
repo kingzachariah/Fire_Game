@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://fnlgcti74u6u"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y2wwj"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(5, 5, 1)
+spread = 33.241
+initial_velocity_min = 50.0
+initial_velocity_max = 70.0
+gravity = Vector3(0, 9, 0)
+damping_min = 50.0
+damping_max = 100.0
+
+[sub_resource type="Gradient" id="Gradient_noxdc"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.76775, 0.574906, 0.420777, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vq2nb"]
+gradient = SubResource("Gradient_noxdc")
+width = 1
+
+[node name="BreakBlockParticles" type="GPUParticles2D"]
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_y2wwj")
+texture = SubResource("GradientTexture1D_vq2nb")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.64
+randomness = 1.0

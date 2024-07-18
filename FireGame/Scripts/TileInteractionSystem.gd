@@ -14,5 +14,5 @@ func handle_interaction(tilemap: TileMap, tile_position: Vector2, velocity: Vect
 
 	##print(tile_id)
 	if tile_id in interactions:
-		return interactions[tile_id].interact(tilemap, tile_position, velocity)
+		return interactions[tile_id].interact(tilemap, tile_position, velocity, self)
 	return false

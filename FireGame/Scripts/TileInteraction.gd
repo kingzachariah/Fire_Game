@@ -4,5 +4,5 @@ extends RefCounted
 class_name TileInteraction
 
 # Called when the node enters the scene tree for the first time.
-func interact(tilemap: TileMap, tile_position: Vector2, velocity: Vector2):
+func interact(tilemap: TileMap, tile_position: Vector2, velocity: Vector2, parent: Node):
 	pass

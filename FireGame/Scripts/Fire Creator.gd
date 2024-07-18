@@ -9,11 +9,10 @@ var fire_textures: Array[Texture2D] = [FIRE_1,FIRE_2,FIRE_3,FIRE_4]
 var fire_sizes: Array[float] = [2,3,5,7]
 
 @onready var fire_aim_point = $"../../FireAimPoint"
-@onready var sprite_2d = $"../../Sprite2D"
-@onready var collision_shape_2d = $"../../CollisionShape2D"
-@onready var ray_cast_2d = $"../../RayCast2D"
-@onready var steam = $"../../Steam"
-
+@onready var sprite_2d = $"../../PlayerSpriteManager"
+@onready var collision_shape_2d = $"../../PlayerCollisionShape"
+@onready var ray_cast_2d = $"../../PlayerRainSystem/RayCast2D"
+@onready var steam = $"../../PlayerRainSystem/Steam"
 
 const FIRE_BODY = preload("res://FireGame/Scenes/fire_body.tscn")
 const COAL = preload("res://FireGame/Tilesets/Coal.png")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dewv6fxpunnsh"]
+[gd_scene load_steps=27 format=3 uid="uid://dewv6fxpunnsh"]
 
 [ext_resource type="Script" path="res://FireGame/Scripts/PlayerController.gd" id="1_c6uwv"]
 [ext_resource type="Resource" uid="uid://b8geera0ncwfd" path="res://FireGame/Resources/BaseStats.tres" id="2_j5e8m"]
@@ -8,6 +8,8 @@
 [ext_resource type="Shader" path="res://FireGame/Scenes/playerFireParticles.gdshader" id="4_rs1vc"]
 [ext_resource type="Texture2D" uid="uid://bytvftw8fturs" path="res://FireGame/Tilesets/Fire2.png" id="4_xlgro"]
 [ext_resource type="Resource" uid="uid://byrtsn2gg020k" path="res://FireGame/Resources/size3.tres" id="5_c878w"]
+[ext_resource type="Script" path="res://FireGame/Scripts/PlayerCollisions.gd" id="6_8kpev"]
+[ext_resource type="Script" path="res://FireGame/Scripts/PlayerState.gd" id="6_dsevx"]
 [ext_resource type="Script" path="res://FireGame/Scripts/Dissolve_Sprite.gd" id="8_bh0m2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h0gxi"]
@@ -19,6 +21,16 @@ shader_parameter/randomv2 = 0.005
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uen1t"]
 radius = 9.0
+
+[sub_resource type="Gradient" id="Gradient_0xw3q"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_p1pyn"]
+gradient = SubResource("Gradient_0xw3q")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [sub_resource type="Animation" id="Animation_8ubom"]
 resource_name = "FireWobble"
@@ -78,16 +90,6 @@ _data = {
 "RESET": SubResource("Animation_8fgju")
 }
 
-[sub_resource type="Gradient" id="Gradient_0xw3q"]
-interpolation_mode = 2
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_p1pyn"]
-gradient = SubResource("Gradient_0xw3q")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-fill_to = Vector2(1, 0.5)
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_k3ohx"]
 particle_flag_disable_z = true
 emission_shape = 3
@@ -145,24 +147,34 @@ height = 2
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 floor_snap_length = 10.0
 script = ExtResource("1_c6uwv")
+
+[node name="PlayerState" type="Node" parent="."]
+script = ExtResource("6_dsevx")
 movement_datas = Array[Resource("res://FireGame/Scripts/PlayerMovementData.gd")]([ExtResource("2_j5e8m"), ExtResource("3_dj8q6"), ExtResource("4_e2njk"), ExtResource("5_c878w")])
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="PlayerCollisions" type="Node" parent="."]
+script = ExtResource("6_8kpev")
+
+[node name="PlayerSpriteManager" type="Sprite2D" parent="."]
 z_index = 5
 material = SubResource("ShaderMaterial_h0gxi")
 position = Vector2(0, -10)
 texture = ExtResource("4_xlgro")
 script = ExtResource("8_bh0m2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="PlayerCollisionShape" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_uen1t")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(0, -10)
-target_position = Vector2(0, -1000)
+[node name="PlayerLight" type="PointLight2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(759.375, 759.375)
+color = Color(0.925161, 0.880584, 0.878774, 1)
+energy = 0.7
+texture = SubResource("GradientTexture2D_p1pyn")
+texture_scale = 0.01
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="FireAimPointAnimator" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_0nvj5")
 }
@@ -171,21 +183,15 @@ autoplay = "FireWobble"
 [node name="FireAimPoint" type="Marker2D" parent="."]
 position = Vector2(-6, -10)
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, -6)
-scale = Vector2(759.375, 759.375)
-color = Color(0.925161, 0.880584, 0.878774, 1)
-energy = 0.7
-texture = SubResource("GradientTexture2D_p1pyn")
-texture_scale = 0.01
+[node name="FireRoot" type="Node" parent="."]
 
-[node name="Node" type="Node" parent="."]
-
-[node name="Fire Parent" type="Node2D" parent="Node"]
+[node name="Fire Parent" type="Node2D" parent="FireRoot"]
 position = Vector2(0, -10)
 script = ExtResource("3_f7p2t")
 
-[node name="Rain" type="GPUParticles2D" parent="."]
+[node name="PlayerRainSystem" type="Node2D" parent="."]
+
+[node name="Rain" type="GPUParticles2D" parent="PlayerRainSystem"]
 z_index = -4
 position = Vector2(0, -300)
 amount = 4000
@@ -199,7 +205,11 @@ trail_lifetime = 0.1
 trail_sections = 2
 trail_section_subdivisions = 1
 
-[node name="Steam" type="GPUParticles2D" parent="."]
+[node name="RayCast2D" type="RayCast2D" parent="PlayerRainSystem"]
+position = Vector2(0, -10)
+target_position = Vector2(0, -1000)
+
+[node name="Steam" type="GPUParticles2D" parent="PlayerRainSystem"]
 position = Vector2(0, -10)
 emitting = false
 amount = 100
